@@ -1,0 +1,1292 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>utang ni ming 💀</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&family=Dancing+Script:wght@700&display=swap"
+        rel="stylesheet">
+    <style>
+        /* --- CORE STYLESHEET RESET & VARIABLES (BLUE AESTHETIC RECOLOR) --- */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Poppins', sans-serif;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            /* Mula sa dating brown, ngayon ay Midnight Blue to Space Navy Gradient */
+            background: linear-gradient(135deg, #0b132b 0%, #1c2541 100%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 15px;
+            color: #e0e1dd;
+            overflow-x: hidden;
+        }
+
+        /* --- STAGE 0: CYBER BLUE WELCOME OVERLAY DISPLAY --- */
+        #main-welcome-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(180deg, #1c2541 0%, #0b132b 100%);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            gap: 25px;
+            padding: 20px;
+            transition: opacity 0.8s ease, visibility 0.8s ease;
+        }
+
+        .screenshot-header-text {
+            text-align: center;
+            margin-bottom: 10px;
+        }
+
+        .screenshot-header-text h3 {
+            font-family: 'Poppins', sans-serif;
+            font-weight: 800;
+            /* Makapal pero malinis ang curves */
+            text-transform: uppercase;
+            font-size: 2.8rem;
+            color: #4ea8de;
+            /* Electric Glow */
+            text-shadow: 0 0 15px rgba(78, 168, 222, 0.6), 2px 4px 8px rgba(0, 0, 0, 0.4);
+            margin-bottom: 3px;
+            letter-spacing: 4px;
+        }
+
+        .screenshot-header-text p {
+            font-family: 'Poppins', sans-serif;
+            font-size: 11px;
+            letter-spacing: 6px;
+            color: #5bc0be;
+            /* Soft Cyan/Mint */
+            font-weight: 600;
+        }
+
+        /* COMPACT BLUE ENVELOPE CONFIGURATION LAYER */
+        .envelope-wrapper {
+            position: relative;
+            cursor: pointer;
+            width: 320px;
+            height: 220px;
+            transition: transform 0.4s ease;
+        }
+
+        .envelope {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: #3a506b;
+            border-bottom-left-radius: 8px;
+            border-bottom-right-radius: 8px;
+            box-shadow: 0 12px 25px rgba(0, 0, 0, 0.5);
+            z-index: 10;
+        }
+
+        .envelope::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            z-index: 40;
+            border-top: 130px solid #5bc0be;
+            border-left: 160px solid transparent;
+            border-right: 160px solid transparent;
+            transform-origin: top;
+            transition: transform 0.5s ease 0.2s;
+            border-radius: 8px 8px 0 0;
+        }
+
+        .envelope::after {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            z-index: 30;
+            width: 0;
+            height: 0;
+            border-top: 110px solid transparent;
+            border-right: 160px solid #1c2541;
+            border-bottom: 110px solid #1c2541;
+            border-left: 160px solid #1c2541;
+            border-radius: 0 0 8px 8px;
+        }
+
+        .wax-seal {
+            position: absolute;
+            bottom: 85px;
+            left: 50%;
+            width: 55px;
+            height: 55px;
+            background: #0b132b;
+            z-index: 50;
+            transform: translate(-50%, 0);
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: #4ea8de;
+            font-size: 24px;
+            box-shadow: 0 0 12px rgba(78, 168, 222, 0.4);
+            border: 2px solid #5bc0be;
+            transition: opacity 0.3s ease, transform 0.3s ease;
+        }
+
+        .envelope-letter {
+            position: absolute;
+            bottom: 5px;
+            left: 15px;
+            width: 290px;
+            height: 200px;
+            background: #f8f9fa;
+            text-align: center;
+            padding: 20px 15px;
+            z-index: 20;
+            border-radius: 6px;
+            opacity: 0;
+            transform: translateY(0);
+            transition: transform 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0.4s ease;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .envelope-letter-photo {
+            width: 65px;
+            height: 65px;
+            border-radius: 50%;
+            margin-bottom: 8px;
+            border: 3px solid #3a506b;
+            object-fit: cover;
+        }
+
+        .envelope-letter p {
+            font-size: 12px;
+            color: #1c2541;
+            font-style: italic;
+            margin-bottom: 10px;
+            line-height: 1.4;
+        }
+
+        .envelope-btn {
+            background: #1c2541;
+            color: #5bc0be;
+            border: 1px solid #5bc0be;
+            padding: 8px 18px;
+            border-radius: 20px;
+            font-size: 11px;
+            cursor: pointer;
+            font-weight: 600;
+            text-transform: uppercase;
+            box-shadow: 0 3px 6px rgba(0, 0, 0, 0.3);
+        }
+
+        /* OPEN STATES ENVELOPE SWITCH */
+        .envelope-wrapper.open .envelope::before {
+            transform: rotateX(180deg);
+            z-index: 5;
+        }
+
+        .envelope-wrapper.open .envelope-letter {
+            transform: translateY(-125px);
+            z-index: 45;
+            opacity: 1;
+        }
+
+        .envelope-wrapper.open .wax-seal {
+            opacity: 0;
+            transform: translate(-50%, -10%) scale(0);
+        }
+
+        /* --- STAGE 1: SYSTEM CENTRAL CORE INTERACTION HUB --- */
+        .dimension-hub {
+            width: 100%;
+            max-width: 950px;
+            display: none;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            background: rgba(28, 37, 65, 0.9);
+            border: 4px solid #4ea8de;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.6), 0 0 20px rgba(78, 168, 222, 0.2);
+            padding: 20px;
+            border-radius: 12px;
+        }
+
+        /* POWER ADVANCED SOUND DOCK MODULE */
+        .audio-hardware-controller {
+            grid-column: 1 / -1;
+            background: #0b132b;
+            border: 2px solid #5bc0be;
+            padding: 12px;
+            border-radius: 8px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.6);
+        }
+
+        .audio-title-tag {
+            font-size: 11px;
+            letter-spacing: 2px;
+            color: #5bc0be;
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+
+        .audio-button-group {
+            display: flex;
+            gap: 8px;
+        }
+
+        .music-toggle-node {
+            padding: 6px 14px;
+            font-size: 11px;
+            font-weight: bold;
+            border: 1px solid #3a506b;
+            background: #1c2541;
+            color: #fff;
+            cursor: pointer;
+            border-radius: 4px;
+            text-transform: uppercase;
+            transition: all 0.2s;
+        }
+
+        .music-toggle-node.active-audio-state {
+            background: #4ea8de;
+            color: #0b132b;
+            border-color: #fff;
+            box-shadow: 0 0 10px #4ea8de;
+        }
+
+        /* SLIDESHOW STYLING PANEL (LEFT PANEL) */
+        .photo-universe-panel {
+            background: #0b132b;
+            border: 3px solid #3a506b;
+            position: relative;
+            height: 420px;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-radius: 8px;
+        }
+
+        .photo-slide {
+            position: absolute;
+            width: 88%;
+            height: 88%;
+            object-fit: cover;
+            border: 6px solid #e0e1dd;
+            border-radius: 4px;
+            opacity: 0;
+            transform: scale(0.96);
+            transition: opacity 0.8s ease-in-out, transform 0.8s ease;
+        }
+
+        .photo-slide.active {
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        /* ARCADE RIG MONITOR CHASSIS (RIGHT PANEL) */
+        .arcade-cabinet-panel {
+            background: #111a31;
+            border: 3px solid #3a506b;
+            padding: 15px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            height: 420px;
+            position: relative;
+            border-radius: 8px;
+        }
+
+        .arcade-viewscreen {
+            width: 100%;
+            height: 230px;
+            background: #050b14;
+            border: 2px solid #5bc0be;
+            position: relative;
+            overflow: hidden;
+            border-radius: 4px;
+            box-shadow: inset 0 0 20px rgba(91, 192, 190, 0.3);
+        }
+
+        /* SPRITE CHANNELS RUNTIME ENGINE */
+        #player-ship {
+            position: absolute;
+            left: 50%;
+            bottom: 15px;
+            width: 42px;
+            height: 38px;
+            background: #4ea8de;
+            color: #0b132b;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-weight: bold;
+            border-radius: 6px;
+            transform: translateX(-50%);
+            transition: left 0.15s ease-out;
+            z-index: 5;
+            box-shadow: 0 0 10px #4ea8de;
+        }
+
+        #arcade-boss {
+            position: absolute;
+            left: 50%;
+            top: 45px;
+            transform: translateX(-50%);
+            font-size: 34px;
+            transition: left 0.08s linear;
+            z-index: 5;
+        }
+
+        .bullet {
+            position: absolute;
+            width: 6px;
+            height: 16px;
+            background-color: #64dfdf;
+            border-radius: 3px;
+            box-shadow: 0 0 12px #4ea8de;
+            z-index: 4;
+            animation: moveLaserUp 0.35s linear forwards;
+        }
+
+        @keyframes moveLaserUp {
+            0% {
+                bottom: 45px;
+                opacity: 1;
+            }
+
+            100% {
+                bottom: 240px;
+                opacity: 0;
+            }
+        }
+
+        .boss-hud-mini {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            font-size: 11px;
+            color: #5bc0be;
+            font-family: monospace;
+            background: rgba(11, 19, 43, 0.9);
+            padding: 6px 10px;
+            border-bottom: 1px solid #3a506b;
+            z-index: 10;
+        }
+
+        /* HARDWARE SYSTEM DPAD CONTROLS */
+        .joystick-panel {
+            background: #0b132b;
+            border: 1px solid #3a506b;
+            padding: 8px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-radius: 6px;
+            margin-top: 5px;
+        }
+
+        .dpad-cross {
+            width: 80px;
+            height: 80px;
+            position: relative;
+            background: #1c2541;
+            border-radius: 50%;
+            box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.6);
+        }
+
+        .dpad-btn {
+            position: absolute;
+            background: #3a506b;
+            border: 1px solid #5bc0be;
+            color: #fff;
+            font-size: 14px;
+            cursor: pointer;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            user-select: none;
+            border-radius: 4px;
+        }
+
+        .dpad-btn:active {
+            background: #4ea8de;
+            color: #0b132b;
+        }
+
+        .dp-left {
+            width: 28px;
+            height: 28px;
+            top: 26px;
+            left: 3px;
+        }
+
+        .dp-right {
+            width: 28px;
+            height: 28px;
+            top: 26px;
+            right: 3px;
+        }
+
+        .action-arcade-rig {
+            display: flex;
+            gap: 10px;
+        }
+
+        .joy-btn {
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            border: 2px solid #fff;
+            color: #fff;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            user-select: none;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+        }
+
+        .btn-a {
+            background: #4ea8de;
+            border-color: #5bc0be;
+            color: #0b132b;
+        }
+
+        .btn-b {
+            background: #5bc0be;
+            color: #0b132b;
+            font-size: 10px;
+            border-color: #fff;
+        }
+
+        /* WINNING STAGE REWARD MATRIX LAYER */
+        .wheel-overlay-screen {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(11, 19, 43, 0.98);
+            display: none;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 15px;
+            z-index: 20;
+            border-radius: 8px;
+        }
+
+        .wheel-overlay-screen.active {
+            display: flex;
+        }
+
+        .wheel-canvas-wrap {
+            position: relative;
+            width: 140px;
+            height: 140px;
+            margin: 10px 0;
+        }
+
+        #wheel {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            border: 4px solid #5bc0be;
+            background: conic-gradient(#1c2541 0deg 90deg, #0b132b 90deg 180deg, #4ea8de 180deg 270deg, #3a506b 270deg 360deg);
+            transition: transform 3s cubic-bezier(0.1, 0.8, 0.3, 1);
+        }
+
+        .wheel-pointer {
+            position: absolute;
+            top: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 0;
+            height: 0;
+            border-left: 12px solid transparent;
+            border-right: 12px solid transparent;
+            border-top: 18px solid #fff;
+            z-index: 25;
+        }
+
+        /* --- STAGE 2: BOTTOM NAVIGATION CONTROLLER MODULE --- */
+        .bottom-navigation-panel {
+            grid-column: 1 / -1;
+            background: #0b132b;
+            border: 3px dashed #4ea8de;
+            padding: 20px;
+            margin-top: 5px;
+            border-radius: 8px;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            align-items: center;
+        }
+
+        .nav-row-buttons {
+            display: flex;
+            gap: 15px;
+            width: 100%;
+            max-width: 650px;
+        }
+
+        .btn-navigation {
+            flex: 1;
+            padding: 15px;
+            font-size: 13px;
+            font-weight: bold;
+            border-radius: 6px;
+            cursor: pointer;
+            text-transform: uppercase;
+            border: 2px solid #5bc0be;
+            background-color: #1c2541;
+            color: #fff;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+            transition: background 0.3s, transform 0.2s;
+        }
+
+        .btn-navigation:disabled {
+            background-color: #0b132b;
+            border-color: #2c3e50;
+            color: #4f5d75;
+            cursor: not-allowed;
+            box-shadow: none;
+        }
+
+        .btn-navigation:hover:not(:disabled) {
+            background-color: #4ea8de;
+            color: #0b132b;
+            box-shadow: 0 0 10px #4ea8de;
+        }
+
+        /* OVERLAY WINDOW INTERFACES */
+        .hidden-nav-window {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(11, 19, 43, 0.97);
+            z-index: 5000;
+            display: none;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .modal-card-content {
+            background-color: #1c2541;
+            border: 3px solid #4ea8de;
+            border-radius: 10px;
+            width: 100%;
+            max-width: 440px;
+            padding: 25px;
+            text-align: center;
+            box-shadow: 0 0 25px rgba(78, 168, 222, 0.4);
+        }
+
+        /* GIF DEPLOYMENT CHASSIS */
+        .gif-box-arena {
+            width: 100%;
+            height: 190px;
+            background-color: #0b132b;
+            border: 2px solid #3a506b;
+            margin-bottom: 20px;
+            border-radius: 6px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+        }
+
+        .gif-display-frame {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .options-vertical-stack {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .opt-choice-btn {
+            background-color: #0b132b;
+            color: #e0e1dd;
+            border: 1px solid #3a506b;
+            padding: 14px;
+            font-size: 14px;
+            font-weight: 600;
+            text-align: center;
+            cursor: pointer;
+            border-radius: 6px;
+        }
+
+        .opt-choice-btn.selected-node {
+            background-color: #4ea8de;
+            color: #0b132b;
+            border-color: #fff;
+            box-shadow: 0 0 15px rgba(78, 168, 222, 0.6);
+        }
+
+        /* FORM TEXTAREA FIELD */
+        .custom-area {
+            width: 100%;
+            height: 110px;
+            background: #0b132b;
+            border: 2px solid #5bc0be;
+            color: #fff;
+            padding: 12px;
+            margin: 15px 0;
+            resize: none;
+            border-radius: 6px;
+            font-size: 14px;
+            line-height: 1.5;
+        }
+
+        .btn-close-modal {
+            background: transparent;
+            color: #4ea8de;
+            border: none;
+            font-size: 12px;
+            text-decoration: underline;
+            cursor: pointer;
+            margin-top: 18px;
+            display: inline-block;
+        }
+
+        .btn-submit-form {
+            background-color: #3a506b;
+            color: #fff;
+            border: 2px solid #4ea8de;
+            width: 100%;
+            padding: 15px;
+            font-weight: bold;
+            text-transform: uppercase;
+            cursor: pointer;
+            border-radius: 6px;
+            margin-top: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
+            transition: all 0.3s ease;
+        }
+
+        /* SYSTEM CORE RESPONSIVE ARCHITECTURE */
+        .screen {
+            display: none;
+            height: 100%;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .screen.active {
+            display: flex;
+        }
+
+        h1 {
+            color: #4ea8de;
+            font-size: 19px;
+            text-align: center;
+            font-family: monospace;
+        }
+
+        h2 {
+            color: #5bc0be;
+            font-size: 12px;
+            text-align: center;
+            margin-bottom: 8px;
+            font-family: monospace;
+        }
+
+        /* ========================================================
+            📱 RESPONSIVE CP LAYOUT MEDIA QUERIES
+           ======================================================== */
+        @media (max-width: 768px) {
+            .dimension-hub {
+                grid-template-columns: 1fr;
+                padding: 12px;
+                gap: 15px;
+            }
+
+            .photo-universe-panel,
+            .arcade-cabinet-panel {
+                height: 380px;
+            }
+
+            .nav-row-buttons {
+                flex-direction: column;
+                gap: 10px;
+            }
+
+            .btn-navigation {
+                width: 100%;
+                padding: 14px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            body {
+                padding: 8px;
+            }
+
+            .screenshot-header-text h3 {
+                font-size: 2.8rem;
+            }
+
+            .envelope-wrapper {
+                width: 290px;
+                height: 200px;
+            }
+
+            .envelope::before {
+                border-top-width: 120px;
+                border-left-width: 145px;
+                border-right-width: 145px;
+            }
+
+            .envelope::after {
+                border-right-width: 145px;
+                border-left-width: 145px;
+                border-bottom-width: 100px;
+                border-top-width: 100px;
+            }
+
+            .envelope-letter {
+                width: 260px;
+                height: 180px;
+                left: 15px;
+            }
+
+            .audio-hardware-controller {
+                padding: 8px;
+                flex-direction: column;
+                gap: 8px;
+            }
+
+            .photo-universe-panel {
+                height: 320px;
+            }
+
+            .arcade-cabinet-panel {
+                height: 410px;
+                padding: 10px;
+            }
+
+            .arcade-viewscreen {
+                height: 190px;
+            }
+
+            .dpad-cross {
+                width: 85px;
+                height: 85px;
+            }
+
+            .dp-left {
+                width: 30px;
+                height: 30px;
+                top: 27.5px;
+            }
+
+            .dp-right {
+                width: 30px;
+                height: 30px;
+                top: 27.5px;
+            }
+
+            .joy-btn {
+                width: 46px;
+                height: 46px;
+                font-size: 18px;
+            }
+
+            .modal-card-content {
+                padding: 18px;
+            }
+
+            .gif-box-arena {
+                height: 150px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div id="main-welcome-screen">
+        <div class="screenshot-header-text">
+            <div class="screenshot-header-text">
+                <h3>YOU SO PRETTY, PEY ✨</h3>
+                <p>// YOU HIT DIFFERENT 💖 //</p>
+            </div>
+        </div>
+
+        <div class="envelope-wrapper" id="envelopeWrapper">
+            <div class="envelope"></div>
+            <div class="envelope-letter">
+                <img src="pey.gif" alt="Special Frame" class="envelope-letter-photo">
+                <p>Hi pey natapos gihap himuan ko an akon utang. ☺️ Pasensiya na kon naihaan. Dri ini hiya perfect ngan
+                    also dri ini pure ako naghimo kami ni
+                    ai 🤖 naghimo kay kon ako la mag 3months matatapos ini 💀😅,
+                    <br/>
+                    BTW I’m sorry pala for the past days when you sometimes had a bad time because of me 😞. I never meant to make
+                    things hard for you. I hope this mini web puts a smile on your face today.. 🌷🐻🤍<br> </p>
+                <button class="envelope-btn" id="open-dimension-btn">OPEN IT 🎮</button>
+            </div>
+            <div class="wax-seal">💙</div>
+        </div>
+    </div>
+
+    <div class="dimension-hub" id="dimensionHub">
+
+        <div class="audio-hardware-controller">
+            <span class="audio-title-tag">🎧 Dimension Sound Controller:</span>
+            <div class="audio-button-group">
+                <button class="music-toggle-node" id="sound-on-btn" onclick="triggerSystemMusic(true)">▶️ OPEN
+                    Music</button>
+                <button class="music-toggle-node" id="sound-off-btn" onclick="triggerSystemMusic(false)">⏸️ CLOSE
+                    Music</button>
+            </div>
+        </div>
+
+        <div class="photo-universe-panel">
+            <img src="pic1.jpeg" class="photo-slide active" alt="Slide 1">
+            <img src="pic2.jpeg" class="photo-slide" alt="Slide 2">
+            <img src="pic3.jpeg" class="photo-slide" alt="Slide 3">
+            <img src="pic4.jpeg" class="photo-slide" alt="Slide 4">
+            <img src="pic5.jpeg" class="photo-slide" alt="Slide 5">
+            <img src="pic6.jpeg" class="photo-slide" alt="Slide 6">
+            <img src="pic7.jpeg" class="photo-slide" alt="Slide 7">
+            <img src="pic8.jpeg" class="photo-slide" alt="Slide 8">
+            <img src="pic9.jpeg" class="photo-slide" alt="Slide 9">
+            <img src="pic10.jpeg" class="photo-slide" alt="Slide 10">
+            <img src="pic11.jpeg" class="photo-slide" alt="Slide 11">
+            <img src="pic12.jpeg" class="photo-slide" alt="Slide 12">
+            <img src="pic13.jpeg" class="photo-slide" alt="Slide 13">
+            <img src="pic14.jpeg" class="photo-slide" alt="Slide 14">
+        </div>
+
+        <div class="arcade-cabinet-panel">
+            <div
+                style="height: 100%; position: relative; display: flex; flex-direction: column; justify-content: center;">
+
+                <div class="screen active" id="screen-intro-select">
+                    <h1>Select Fighter</h1>
+                    <h2>Choose avatar to activate</h2>
+                    <div style="display: flex; gap: 10px; justify-content: center; margin: 15px 0;">
+                        <div id="card-p1"
+                            style="background:#140d09; padding:12px; border:2px dashed #7f5539; border-radius:6px; cursor:pointer; text-align:center; font-size:12px; flex:1;"
+                            onclick="selectChar('p1')">
+                            💝 PEY (P1)
+                            <br><span style="font-size:9px; color:#b08968;">Heartship</span>
+                        </div>
+                        <div id="card-p2"
+                            style="background:#140d09; padding:12px; border:2px dashed #ddb892; border-radius:6px; cursor:pointer; text-align:center; font-size:12px; flex:1;"
+                            onclick="selectChar('p2')">
+                            🚀 MING (P2) <br><span style="font-size:9px; color:#b08968;"> Plasma Rig
+
+                            </span>
+                        </div>
+                    </div>
+                    <button class="btn-submit-form" id="play-game-btn" disabled onclick="bootShootingGame()"
+                        style="margin-top:0;">UYASI ANAY INI MAYDA HINI PREMYO</button>
+                </div>
+
+                <div class="screen" id="screen-shooting-game">
+                    <div class="arcade-viewscreen" id="viewport-arena">
+                        <div class="boss-hud-mini">
+                            <span id="score-txt-tag">SCORE: 0</span>
+                            <span id="boss-shield-txt">HP: 100%</span>
+                        </div>
+                        <div id="arcade-boss">👹</div>
+                        <div id="player-ship">🚀</div>
+                    </div>
+
+                    <div class="joystick-panel">
+                        <div class="dpad-cross">
+                            <div class="dpad-btn dp-left" onclick="steerShip('left')">◀</div>
+                            <div class="dpad-btn dp-right" onclick="steerShip('right')">▶</div>
+                        </div>
+                        <div class="action-arcade-rig">
+                            <div class="joy-btn btn-b" onclick="steerShip('center')">RST</div>
+                            <div class="joy-btn btn-a" onclick="fireLaser()">A</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="wheel-overlay-screen" id="screen-surprise-wheel">
+                    <h1 style="color:#ddb892; font-size:14px;">⚠️ STAGE CLEAR ⚠️</h1>
+                    <h2 style="color:#fff; margin-bottom:5px;">Spin for verification link</h2>
+                    <div class="wheel-canvas-wrap">
+                        <div class="wheel-pointer"></div>
+                        <div id="wheel"></div>
+                    </div>
+                    <button class="btn-action" id="spin-btn"
+                        style="background:#ddb892; color:#1f140e; padding:10px; border:none; width:100%; font-weight:bold; border-radius:4px; cursor:pointer;"
+                        onclick="spinSurpriseWheel()">PATUYOKA KA ADI</button>
+                    <p id="wheel-status-msg"
+                        style="text-align:center; font-size:11px; color:#ddb892; margin-top:6px; font-family:monospace;">
+                    </p>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="bottom-navigation-panel">
+            <h3 style="font-size:13px; font-family:monospace; color:#ddb892; text-align:center;">🔓 PACKETS UNLOCKED:
+                CHOOSE THE OPTIONS LABELS</h3>
+
+            <div class="nav-row-buttons">
+                <button class="btn-navigation" id="nav-gif-trigger" disabled
+                    onclick="toggleModal('modal-gif-system', true)">
+                    🎬 PILI NGADI TIM KARUYAG
+                </button>
+                <button class="btn-navigation" id="nav-msg-trigger" disabled
+                    onclick="toggleModal('modal-msg-system', true)">
+                    ✍️ PAG BILIN MESSAGE
+                </button>
+            </div>
+
+            <form id="central-pipeline-form" method="POST" action="https://formspree.io/f/mbdeybdd"
+                style="width:100%; max-width:650px;">
+                <input type="hidden" id="sheet-fighter" name="Fighter_Selected" value="Not Chosen">
+                <input type="hidden" id="sheet-score" name="Game_Arcade_Score" value="0">
+                <input type="hidden" id="sheet-gif-choice" name="Ming_Secret_Option_Selected" value="Not Selected Yet"
+                    required>
+                <input type="hidden" id="sheet-honest-msg" name="Honest_Message_To_Ming" value="No Message Written Yet"
+                    required>
+
+                <button class="btn-submit-form" type="submit" id="main-submit-node" disabled
+                    style="opacity: 0.4; cursor: not-allowed;">
+                    🔒 KUMPLETUHON DAPAT BANGIN MANLA MA TUMAN ✨
+                </button>
+            </form>
+        </div>
+
+    </div>
+
+    <div class="hidden-nav-window" id="modal-gif-system">
+        <div class="modal-card-content">
+            <h3 style="color:#ddb892; font-size:18px; margin-bottom:8px;">✨ CHOOSE OPTION MATRIX ✨</h3>
+            <p style="font-size:12px; color:#b08968; margin-bottom:15px;">Ano tim karuyag dida pili:</p>
+
+            <div class="gif-box-arena">
+                <img src="choice.gif" class="gif-display-frame" id="dynamic-gif-node" alt="Option Visual State">
+            </div>
+
+            <div class="options-vertical-stack">
+                <button class="opt-choice-btn" id="opt-node-1" onclick="registerSecretChoice(1, 'arduino')">☕💻 Tara
+                    kape again with arduino?</button>
+                <button class="opt-choice-btn" id="opt-node-2" onclick="registerSecretChoice(2, 'dagat')"> 🌊🍃 Tara
+                    Dagat or istorya nala </button>
+                <button class="opt-choice-btn" id="opt-node-3" onclick="registerSecretChoice(3, 'next life!')">💀⚰️ Next
+                    life nala</button>
+            </div>
+
+            <button class="btn-close-modal" onclick="toggleModal('modal-gif-system', false)">SAVE & BACK TO HUB</button>
+        </div>
+    </div>
+
+    <div class="hidden-nav-window" id="modal-msg-system">
+        <div class="modal-card-content">
+            <h3 style="color:#ddb892; font-size:18px;">✍️ HONEST EXPRESSION LAYER</h3>
+            <p style="font-size:12px; color:#b08968; margin-top:4px;">Kung mababasa ini ni mimg , mayda kaba isusuga
+                haiya ng dri nim masuga danay?</p>
+
+            <textarea id="honest-input-node" class="custom-area" placeholder="paki surat po dd ❤️ Baby jk HAHAHHA..."
+                oninput="syncHonestMessage()"></textarea>
+
+            <button class="opt-choice-btn" style="width:100%; background-color:#7f5539; color:#fff;"
+                onclick="toggleModal('modal-msg-system', false)">✔️ SAVE & EXIT</button>
+        </div>
+    </div>
+
+    <audio id="love-track" loop>
+        <source src="blue.mp3" type="audio/mpeg">
+    </audio>
+
+    <script>
+        // WINDOW ROUTING AND INTERFACE TOGGLE ARCHITECTURE
+        const envelopeWrapper = document.getElementById('envelopeWrapper');
+        const openDimBtn = document.getElementById('open-dimension-btn');
+        const welcomeScreen = document.getElementById('main-welcome-screen');
+        const dimensionHub = document.getElementById('dimensionHub');
+        const soundTrack = document.getElementById("love-track");
+
+        envelopeWrapper.addEventListener('click', (e) => {
+            if (e.target.id !== 'open-dimension-btn') {
+                envelopeWrapper.classList.toggle('open');
+            }
+        });
+
+        openDimBtn.addEventListener('click', () => {
+            welcomeScreen.style.opacity = '0';
+            setTimeout(() => {
+                welcomeScreen.style.display = 'none';
+                dimensionHub.style.display = 'grid';
+                startPhotoSlideshow();
+            }, 800);
+
+            triggerSystemMusic(true);
+        });
+
+        // 2-WAY DEDICATED HARDWARE MUSIC TUNER ENGINE
+        function triggerSystemMusic(shouldPlay) {
+            const btnOn = document.getElementById("sound-on-btn");
+            const btnOff = document.getElementById("sound-off-btn");
+
+            if (shouldPlay) {
+                soundTrack.play().then(() => {
+                    btnOn.classList.add("active-audio-state");
+                    btnOff.classList.remove("active-audio-state");
+                }).catch(() => { });
+            } else {
+                soundTrack.pause();
+                btnOff.classList.add("active-audio-state");
+                btnOn.classList.remove("active-audio-state");
+            }
+        }
+
+        // STACKED 14 PICTURE FRAME CYCLE ENGINE
+        let currentSlideIndex = 0;
+        const slides = document.querySelectorAll('.photo-slide');
+        function startPhotoSlideshow() {
+            if (slides.length <= 1) return;
+            setInterval(() => {
+                slides[currentSlideIndex].classList.remove('active');
+                currentSlideIndex = (currentSlideIndex + 1) % slides.length;
+                slides[currentSlideIndex].classList.add('active');
+            }, 3000); // Smooth sequence timing across 14 elements
+        }
+
+        // GAME ENGINE PARAMETERS RIG
+        let activeFighter = "";
+        let shipX = 50; let bossX = 50; let bossDirection = 1;
+        let bossShield = 100; let bossTimer = null; let wheelSpun = false;
+        let currentScore = 0;
+
+        function selectChar(fighterCode) {
+            activeFighter = fighterCode;
+            document.getElementById("card-p1").style.borderColor = "#4a3728";
+            document.getElementById("card-p2").style.borderColor = "#4a3728";
+            if (fighterCode === 'p1') document.getElementById("card-p1").style.borderColor = "#a66c46";
+            else document.getElementById("card-p2").style.borderColor = "#ddb892";
+
+            const playBtn = document.getElementById("play-game-btn");
+            playBtn.removeAttribute("disabled");
+            playBtn.style.background = "#ddb892"; playBtn.style.color = "#1f140e";
+        }
+
+        function bootShootingGame() {
+            document.getElementById("screen-intro-select").classList.remove("active");
+            document.getElementById("screen-shooting-game").classList.add("active");
+            document.getElementById("player-ship").innerText = (activeFighter === 'p1') ? "💝" : "🚀";
+            document.getElementById("sheet-fighter").value = (activeFighter === 'p1') ? "Faye Heartship P2 " : "Ming Space Rig";
+            startBossAI();
+        }
+
+        function steerShip(dir) {
+            if (dir === 'left') shipX = Math.max(12, shipX - 14);
+            if (dir === 'right') shipX = Math.min(88, shipX + 14);
+            if (dir === 'center') shipX = 50;
+            document.getElementById("player-ship").style.left = shipX + "%";
+        }
+
+        function startBossAI() {
+            bossTimer = setInterval(() => {
+                bossX += 7 * bossDirection;
+                if (bossX >= 84) bossDirection = -1;
+                if (bossX <= 16) bossDirection = 1;
+                document.getElementById("arcade-boss").style.left = bossX + "%";
+            }, 75);
+        }
+
+        function fireLaser() {
+            if (bossShield <= 0) return;
+            const arena = document.getElementById("viewport-arena");
+            const bullet = document.createElement("div");
+            bullet.className = "bullet";
+            bullet.style.left = `calc(${shipX}% - 3px)`;
+            arena.appendChild(bullet);
+
+            setTimeout(() => {
+                if (bossShield > 0 && Math.abs(shipX - bossX) <= 15) {
+                    bossShield -= 20; currentScore += 10;
+                    if (bossShield < 0) bossShield = 0;
+
+                    document.getElementById("boss-shield-txt").innerText = `HP: ${bossShield}%`;
+                    document.getElementById("score-txt-tag").innerText = `SCORE: ${currentScore}`;
+                    document.getElementById("sheet-score").value = currentScore;
+
+                    const bossElement = document.getElementById("arcade-boss");
+                    bossElement.style.fontSize = "48px";
+                    setTimeout(() => { bossElement.style.fontSize = "34px"; }, 100);
+
+                    if (bossShield <= 0) {
+                        clearInterval(bossTimer);
+                        setTimeout(() => { document.getElementById("screen-surprise-wheel").classList.add("active"); }, 400);
+                    }
+                }
+                bullet.remove();
+            }, 330);
+        }
+
+        function spinSurpriseWheel() {
+            if (wheelSpun) return;
+            wheelSpun = true;
+            document.getElementById("spin-btn").setAttribute("disabled", "true");
+
+            const randomDeg = Math.floor(Math.random() * 360) + 1440;
+            document.getElementById("wheel").style.transform = `rotate(${randomDeg}deg)`;
+            document.getElementById("wheel-status-msg").innerText = "🎰 Synchronizing system assets...";
+
+            setTimeout(() => {
+                document.getElementById("wheel-status-msg").innerText = "🎉 SYSTEMS ACCESS GRANTED.";
+                alert(`✨ NAG DAUG KA 1M₱ HA SHOPEE, SUGAD ANAY SALAMAT SHOPEE, PERO BEFORE NIM MAKUHA ITON MAHATAG KA ANAY HAAK 2M₱ OKS LA BA? 💰.`);
+                document.getElementById("screen-surprise-wheel").classList.remove("active");
+
+                document.getElementById("nav-gif-trigger").removeAttribute("disabled");
+                document.getElementById("nav-msg-trigger").removeAttribute("disabled");
+            }, 3000);
+        }
+
+        // MODAL VISUAL ENGINE LAYERS
+        function toggleModal(modalId, isOpen) {
+            document.getElementById(modalId).style.display = isOpen ? "flex" : "none";
+            checkFormReadyState();
+        }
+
+        function registerSecretChoice(optionId, optionString) {
+            document.getElementById("opt-node-1").classList.remove("selected-node");
+            document.getElementById("opt-node-2").classList.remove("selected-node");
+            document.getElementById("opt-node-3").classList.remove("selected-node");
+
+            document.getElementById(`opt-node-${optionId}`).classList.add("selected-node");
+            document.getElementById("sheet-gif-choice").value = optionString;
+
+            const gifFrame = document.getElementById("dynamic-gif-node");
+            if (optionId === 1) gifFrame.src = "coffee.gif";
+            if (optionId === 2) gifFrame.src = "sea.gif";
+            if (optionId === 3) gifFrame.src = "ming1.gif";
+        }
+
+        function syncHonestMessage() {
+            const textVal = document.getElementById("honest-input-node").value;
+            document.getElementById("sheet-honest-msg").value = textVal ? textVal : "No Message Written Yet";
+            checkFormReadyState();
+        }
+
+        function checkFormReadyState() {
+            const gifFilled = document.getElementById("sheet-gif-choice").value !== "Not Selected Yet";
+            const msgFilled = document.getElementById("honest-input-node").value.trim() !== "";
+            const submitBtn = document.getElementById("main-submit-node");
+
+            if (gifFilled && msgFilled) {
+                submitBtn.removeAttribute("disabled");
+                submitBtn.style.opacity = "1";
+                submitBtn.style.cursor = "pointer";
+                submitBtn.innerHTML = "✨ KUMPLETUHI TAS I LOCK NAMN✨";
+            }
+        }
+
+        // NATIVE SYSTEM DISPATCH (SUBMIT PIPELINE & BACK TO ROOT SWITCH)
+        let isDataTransmitted = false;
+
+        document.getElementById("central-pipeline-form").addEventListener("submit", function (e) {
+            e.preventDefault();
+            const form = this;
+            const data = new FormData(form);
+            const submitBtn = document.getElementById("main-submit-node");
+
+            if (!isDataTransmitted) {
+                // First Click State: Magta-transmit ng formsheet payload nang tahimik pre
+                submitBtn.setAttribute("disabled", "true");
+                submitBtn.innerHTML = "LOCKING CONTROL MATRIX CONFIG... 🚀";
+
+                fetch(form.action, {
+                    method: form.method,
+                    body: data,
+                    headers: { 'Accept': 'application/json' }
+                }).then(() => {
+                    isDataTransmitted = true;
+                    submitBtn.removeAttribute("disabled");
+                    submitBtn.style.background = "#ddb892";
+                    submitBtn.style.color = "#1f140e";
+                    // Binago ang label into a safe back layout button
+                    submitBtn.innerHTML = "🔄 BACK TO FIRST PAGE";
+                }).catch(() => {
+                    alert("PAKI UPAY HIT PAG CLICK BAGSUBOD INI.");
+                    submitBtn.removeAttribute("disabled");
+                    checkFormReadyState();
+                });
+            } else {
+                // Second Click State: Pag click ulit, babalik nang swabe sa Welcome Envelope screen!
+                dimensionHub.style.display = 'none';
+                welcomeScreen.style.display = 'flex';
+                welcomeScreen.style.opacity = '1';
+
+                // Full state engine soft reset para kung gustong ulitin ang process
+                isDataTransmitted = false;
+                envelopeWrapper.classList.remove('open');
+                document.getElementById("central-pipeline-form").reset();
+                document.getElementById("honest-input-node").value = "";
+                document.getElementById("sheet-gif-choice").value = "Not Selected Yet";
+                document.getElementById("sheet-honest-msg").value = "No Message Written Yet";
+                document.getElementById("opt-node-1").classList.remove("selected-node");
+                document.getElementById("opt-node-2").classList.remove("selected-node");
+                document.getElementById("opt-node-3").classList.remove("selected-node");
+                document.getElementById("dynamic-gif-node").src = "pic1.jpeg";
+
+                submitBtn.setAttribute("disabled", "true");
+                submitBtn.style.opacity = "0.4";
+                submitBtn.style.background = "#7f5539";
+                submitBtn.style.color = "#fff";
+                submitBtn.innerHTML = "🔒 PAKI KOMPLETO PO PARA KA LUMARGA ✨";
+
+                // Disable sub-buttons till next gameplay spin
+                document.getElementById("nav-gif-trigger").setAttribute("disabled", "true");
+                document.getElementById("nav-msg-trigger").setAttribute("disabled", "true");
+
+                // Soft reset game state
+                document.getElementById("screen-shooting-game").classList.remove("active");
+                document.getElementById("screen-intro-select").classList.add("active");
+                document.getElementById("play-game-btn").setAttribute("disabled", "true");
+                document.getElementById("card-p1").style.borderColor = "#4a3728";
+                document.getElementById("card-p2").style.borderColor = "#4a3728";
+                bossShield = 100; currentScore = 0; wheelSpun = false;
+                document.getElementById("boss-shield-txt").innerText = "HP: 100%";
+                document.getElementById("score-txt-tag").innerText = "SCORE: 0";
+                document.getElementById("spin-btn").removeAttribute("disabled");
+                document.getElementById("wheel-status-msg").innerText = "";
+                document.getElementById("wheel").style.transform = "rotate(0deg)";
+            }
+        });
+    </script>
+
+</body>
+
+</html>
